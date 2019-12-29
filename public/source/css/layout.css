@@ -1,0 +1,256 @@
+/* định dạng trang login */
+body
+{
+	background-color: 	#f1f1f1;
+	background-repeat: no-repeat;
+/* 	background: url('https://4.bp.blogspot.com/-vNiqO1tggiw/UbVdvIfJk3I/AAAAAAAAAZg/VSUnNubBBN0/s1600/paper_background.jpg');
+ */	background-position: center;
+	background-size: cover;
+	font-family: verdana;
+}
+.logo
+{
+	background-position: 40% 0%;
+	background-size: 110px auto;
+
+
+	width: 135%;
+	height: 110px;
+	padding-right:  auto;
+	padding-left: auto;
+	padding-bottom: 20px;
+	margin-top: 100px;
+	background-repeat: no-repeat;
+	background-image: url('https://scontent.fsgn5-5.fna.fbcdn.net/v/t1.15752-9/53668511_2876689419015758_2589793416095203328_n.png?_nc_cat=108&_nc_oc=AQkH7X2GOz5yBGFkscSaziAyIx0gwvm5ZIVmMnxq0zBnCC-a0kn9bC1v48BHlqUxeVzUpgfigxyD3W7dlg_qKjx3&_nc_ht=scontent.fsgn5-5.fna&oh=3c0e731bc7d4b81e033e9c34c4bcf83d&oe=5D10D9DA')
+
+}
+
+
+.frm_login
+{
+		display: block;
+		width: 310px;
+		border: 5px;
+		border-color: red;	
+		padding: 30px 30px 30px 30px;
+		background-color: white;
+
+
+}
+ label
+{
+	display:block;
+	margin-bottom: 20px;
+	
+
+
+	
+}
+
+input[type=text]
+{
+	line-height: 30px;
+	font-family: arial;
+	background-color: #fbfbfb;
+	
+
+}
+#disable_textbox
+{
+	line-height: 30px;
+	font-family: arial;
+	background-color: #b6b7b2;
+	
+
+
+}
+input[type=date]
+{
+	line-height: 30px;
+	font-family: arial;
+	background-color: #fbfbfb;
+
+}
+input[type=email]
+{
+	line-height: 30px;
+	font-family: arial;
+	background-color: #fbfbfb;
+
+}
+input[type=password]
+{
+	line-height: 30px;
+	font-family: arial;
+	background-color: #fbfbfb;
+
+}
+input[type=submit]
+{
+	line-height: 33px;
+	background-color: #0085ba;
+	color: #ffffff;
+	border-radius: 2px;
+	margin-left: 0px;
+	width: 85px;
+
+
+		
+}
+input[type=reset]
+{
+	line-height: 33px;
+	background-color: #0085ba;
+	color: #ffffff;
+	width: 85px;
+
+		
+}
+input[type=button]
+{
+	line-height: 33px;
+	background-color: #0085ba;
+	color: #ffffff;
+	width: max-content;
+
+		
+}
+#bnt_xuat 
+{
+	line-height: 30px;
+	background-color: #0085ba;
+	color: #ffffff;
+
+		
+}
+#bnt_xuat a
+{
+	text-decoration: none;
+	color: #ffffff;
+}
+
+
+
+
+
+.frm
+{
+	height: 300px;
+	width: 310px;
+	margin-top: 20px;	
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0px;
+	padding-bottom: 70px;
+
+
+}
+select
+{
+	width: 120px; 
+	height: 30px;
+}
+select option
+{
+	text-align: center;
+}
+#dangki
+{
+	color: #ffffff;
+	text-decoration:  none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 7rem;
+  padding: 0.7rem ;
+  margin: 0rem 0 0 -2.8rem ;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  font-family: verdana;
+}
+
+#shopping
+{
+	  color: #1c721a;
+	  font-size: 1.1rem;
+
+}
+#danhmuc{
+	list-style: none;
+	text-decoration: none;
+}
+#loc{
+	border: 1px solid red;
+	border-radius: 25px;
+	line-height: 20px;
+	width: 50px;
+}
+#mainmenu{
+	/* background-image: url('https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/53835404_429834154454976_1677258735669477376_n.png?_nc_cat=106&_nc_oc=AQlGsSaHA_44GN5mEF7BpRo918OXhJ5Gt0yr2qRvaaDrBiAMFQdVOdTSrFPPCdOEqvU&_nc_ht=scontent.fsgn3-1.fna&oh=3df3be5db901ea409cadd15bff0e6f8a&oe=5D743577') */
+
+}
+#nav-link {
+    display: block;
+    padding: -0.7rem 1rem 1rem !important;
+        padding-left: 1rem;
+
+    color: #1c721a;
+    padding-left: 1px;
+    font-size: 1rem;
+    list-style: none;
+}
+.col-md-3, .col-md-10, .col-md-5 {
+	position: relative !important;
+	width: 100% !important;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+}
+ .my-custom-scrollbar {
+	position: relative !important;
+	height: 400px !important;
+	overflow: auto !important;
+	}
+.table-wrapper-scroll-y {
+display: block !important;
+}
+th{
+	text-align: center;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: green;
+    background-color: none !important;
+    border:none !important;
+    border-radius: 10px;
+}
+.fa-2x {
+  font-size: 1.25em;
+}
+#search
+{
+    padding-left: 50px;
+}
+#id1:hover {
+    color: #f1f1f1;
+    background-color: green;
+}
+#sl
+{
+    color: white: ;
+}

@@ -1,0 +1,61 @@
+.dropdown
+{
+	position: relative;
+	display: inline-block;
+}
+.dropdown-content
+{
+	display: none;
+	position: absolute;
+	background-color: red;
+	z-index: 1;
+	padding-top: 10px;
+	width: 180px;
+}
+.dropdown:hover .dropdown-content
+{
+	display: block;
+
+}
+
+.clear
+{
+	clear: both;
+}
+#bnt_add
+{
+	width: 100px;
+	height: 30px;
+}
+#bnt_add a, #bnt_delete a, #bnt_update a
+{
+	text-decoration: none;
+	color: black;
+}
+
+#bnt_delete
+{
+	width: 100px;
+	height: 30px;
+}
+#bnt_update
+{
+	width: 100px;
+	height: 30px;
+}
+#bnt_update:hover
+{ 
+	background-color: #dbdbdb;
+	
+}
+#bnt_add:hover
+{
+		background-color: #dbdbdb;
+
+}
+ #bnt_delete:hover
+ {
+		background-color: #dbdbdb;
+
+ }
+ 
