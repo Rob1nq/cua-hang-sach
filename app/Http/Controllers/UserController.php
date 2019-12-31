@@ -13,7 +13,7 @@ use App\khachhang;
 use App\phieunhap;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator; 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
 use App\User;
@@ -24,7 +24,7 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
     	return view('page.AddUser');
@@ -35,18 +35,18 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
 
             $this->validate($request,
             [
-                'username'=>'required|unique:users,name',
+                'username'=>'required|unique:member,name',
                 'password'=>'required',
                 'email'=>'required|email',
 
             ],
-            [   
+            [
                 'username.required'=>'Vui lòng nhập UserName',
                 'username.unique'=>'Tên đã tồn tại',
                 'password.required'=>'Vui lòng nhập password',
@@ -56,28 +56,28 @@ class UserController extends Controller
             ]);
 
 
-        	$user =new User();	
+        	$user =new User();
         	$user->name= $request->input('username');
         	$user->password= bcrypt($request->input('password'));
         	$user->email= $request->input('email');
         	$user->level= $request->input('level');
         	$user->save();
-            
+
         	return redirect()->route('getAddUser')->with('success', 'Thêm thành công');
         }
 
     }
     public function getUserDeleteUser(){
-    	
+
     }
     public function getList(){
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
-    	$user=DB::table('users')->select('id','name','email','level')->get();
+    	$user=DB::table('member')->select('id','name','email','level')->get();
     	//dd($user);
     	return view('page.UserList',compact('user'));
     }
@@ -86,7 +86,7 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
         return view('page.Useradmin');
@@ -97,12 +97,12 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
         //DB::delete('delete from users where id=?',[$id]);
         $user_curr=Auth::user()->level==1;
-        $user=User::find($id);    
+        $user=User::find($id);
         if($user['level']==1){
             return redirect()->route('getList')->with('danger', 'Xóa thất bại, Không thể xóa Admin');
         }
@@ -118,7 +118,7 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
         $data=User::find($id);
@@ -130,23 +130,23 @@ class UserController extends Controller
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('Admin Login');
-            
+
         }
         else {
 
-      
+
         $id=$request->input('id');
         $pass=$request->password;
         $password=bcrypt($pass);
         $email=$request->input('email');
         $level=$request->input('level');
-        if ($pass==null) DB::update('update users set email=?,level=? where id=?',[$email,$level,$id]); 
+        if ($pass==null) DB::update('update member set email=?,level=? where id=?',[$email,$level,$id]);
         //dd($id,$password,$email,$level);
         //$remember_token=$request->input('_token');
-        else DB::update('update users set password=?,email=?,level=? where id=?',[$password,$email,$level,$id]);
+        else DB::update('update member set password=?,email=?,level=? where id=?',[$password,$email,$level,$id]);
         return redirect()->route('getList')->with('success','Cập nhật thành công');
     }
- 
+
     }
     public function getSignup(){
 
@@ -190,7 +190,7 @@ class UserController extends Controller
         foreach($kh as $value) {
             array_push($tmp, $value->MaKH);
         }
-        $MaKH=array_pop($tmp);       
+        $MaKH=array_pop($tmp);
 
 
         $user=DB::table('member')->insert(['name'=>$name,'password'=>bcrypt($password),'email'=>$email,'level'=>0,'MaKH'=>$MaKH]);
@@ -224,16 +224,16 @@ class UserController extends Controller
         $pass=$request->password;
         $password=bcrypt($pass);
         $email=$request->input('email');
-        if ($pass==null) DB::update('update member set email=? where id=?',[$email,$id]); 
-        
+        if ($pass==null) DB::update('update member set email=? where id=?',[$email,$id]);
+
         else DB::update('update member set password=?,email=? where id=?',[$password,$email,$id]);
         return redirect()->route('getTK',[$id])->with('success','Cập nhật thành công');
         }
     }
-    
+
     public function getThongBao(){
-        $MaKH=DB::table('khachhang')->select('khachhang.MaKH')->join('member','member.MaKH','=','khachhang.MaKH')->where('khachhang.MaKH','=',Auth::guard('member')->user()->MaKH)->first();  
-        
+        $MaKH=DB::table('khachhang')->select('khachhang.MaKH')->join('member','member.MaKH','=','khachhang.MaKH')->where('khachhang.MaKH','=',Auth::guard('member')->user()->MaKH)->first();
+
         $thongbao=DB::table('thongbao')->where('MaKH','=',$MaKH->MaKH)->get();
         $count=Cart::count();
         return view('banhang.thongbao',compact('thongbao','count'));
