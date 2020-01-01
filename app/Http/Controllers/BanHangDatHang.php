@@ -14,7 +14,7 @@ use App\khachhang;
 use App\phieunhap;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator; 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
 
@@ -25,11 +25,12 @@ class BanHangDatHang extends Controller
 
 
             $name=Auth::guard('member')->user()->name;
-            $thongtin=DB::table('khachhang')->join('member','khachhang.MaKH','=','member.MaKH')->where('name','=',$name)->first();
+            $thongtin=DB::table('khachhang')->join('member','khachhang.MaKH','=','member.MaKH')
+            ->where('name','=',$name)->first();
 
             $MaKH=$thongtin->MaKH;
             $date=Carbon::now()->toDateString();
-            $Tongtien=Cart::total(0,'.','');             
+            $Tongtien=Cart::total(0,'.','');
             DB::table('hoadon')
             ->insert(['MaKH'=>$MaKH,'NgayLap'=>$date,'Tongtien'=>$Tongtien]);
             $hoadon=DB::table('hoadon')
@@ -42,7 +43,7 @@ class BanHangDatHang extends Controller
             }
             sort($tmp);
             $SoHD=array_pop($tmp);
-            $content=Cart::content();             
+            $content=Cart::content();
             foreach($content as $value)
             {
                 DB::table('cthd')
@@ -66,34 +67,33 @@ class BanHangDatHang extends Controller
                                 $sl=$value->qty;
                                  break;
                             }
-                            else 
+                            else
                                 {
                                     $kt=false;
                                     $sl=0;
                                 }
                 }
-                            if($kt) 
+                            if($kt)
                                 {
                                     $tong=$slt->SoLuongTon-$sl;
-                                    DB::update('update sach set SoLuongTon=? where MaSach=?',[$tong,$slt->MaSach]);                                    
-                                   
+                                    DB::update('update sach set SoLuongTon=? where MaSach=?',[$tong,$slt->MaSach]);
+
                                 }
                                 else {
                                     $tong=$slt->SoLuongTon-$sl;
-                                                            
-                            }             
 
-                    
-                                
-                        
+                            }
+
+
+
+
             }
-            
+
             $kh=DB::table('khachhang')
-            ->select('HoTenKH','email')
+            ->select('HoTenKH')
             ->join('member','member.MaKH','=','khachhang.MaKH')
             ->where('khachhang.MaKH','=',$MaKH)
             ->first();
-            $email=$kh->email;
 
             $tenKH=$kh->HoTenKH;
             foreach ($soluongton as $slt) {
@@ -107,29 +107,27 @@ class BanHangDatHang extends Controller
                         $NgayRaMat=$slt->NgayRaMat;
                         break;
                     }
-                    else 
+                    else
                     {
                         $kt=false;
                     }
                 }
-                if($kt) 
+                if($kt)
                 {
                     if($NgayRaMat > Carbon::now()->toDateString())
                     {
                         $nd=" Đặt hàng trước "."Mã sách ".(string)$slt->MaSach.", Tên sách ".$slt->TenDauSach;
                         $tb=DB::table('thongbao')
                         ->insert(['ThoiGian'=>Carbon::now(),'NoiDung'=>$nd,'MaKH'=>$MaKH]);
-                        $admin=DB::table('admin')
-                        ->insert(['NguoiGui'=>$tenKH,'email'=>$email,'NoiDung'=>$nd,'ThoiGian'=>Carbon::now()]);
                     }
-                                   
-                }                
 
-                    
-                                
-                        
+                }
+
+
+
+
             }
-            
+
 
             //
             $tongtien=Cart::total(0,'.','');
@@ -138,11 +136,9 @@ class BanHangDatHang extends Controller
 
             $thongbao=DB::table('thongbao')
             ->insert(['ThoiGian'=>Carbon::now(),'NoiDung'=>$noidung,'MaKH'=>$MaKH]);
-            
-            
+
+
             $noidung="Khách hàng ".$tenKH." đã đặt hàng, Số hóa đơn ".$SoHD;
-            $admin=DB::table('admin')
-            ->insert(['NguoiGui'=>$tenKH,'email'=>$email,'NoiDung'=>$noidung,'ThoiGian'=>Carbon::now()]);
             Cart::destroy();
 
         return redirect()->route('shop');
@@ -157,7 +153,7 @@ class BanHangDatHang extends Controller
         $count=Cart::count();
         $tax=Cart::tax(0,'.','');
         $subtotal=Cart::subtotal(0,'.','');
-        if (Auth::check()) 
+        if (Auth::check())
 
             {
                 $name=Auth::user()->name;
@@ -169,7 +165,7 @@ class BanHangDatHang extends Controller
             ->join('member','khachhang.MaKH','=','member.MaKH')
             ->where('name','=',$name)
             ->first();
-        
+
 
             return view('banhang.thanhtoan',compact('content','total','count','subtotal','tax','thanhtoan'));
         }

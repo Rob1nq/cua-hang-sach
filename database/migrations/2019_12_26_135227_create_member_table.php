@@ -14,10 +14,10 @@ class CreateMemberTable extends Migration
     public function up()
     {
         Schema::create('member', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name')->unique();
             $table->string('password',60);
-            $table->string('email');
+            $table->string('Email', 100)->default('demo@gmail.com');
             $table->tinyInteger('level');
             $table->rememberToken();
             $table->timestamps();

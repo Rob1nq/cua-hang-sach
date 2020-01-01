@@ -16,19 +16,19 @@ use App\khachhang;
 use App\phieunhap;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\Paginator; 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Auth;
 use PDF;
 class pageController extends Controller
 {
-  
-    
-    public  function get_index(){ 
+
+
+    public  function get_index(){
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
             $month=DB::table('hoadon')
@@ -39,7 +39,8 @@ class pageController extends Controller
             $thang=Carbon::now()->month;
             foreach($month  as $value)
             {
-                if ($value->NL==$thang) $doanhthu=$value->DT;
+                if ($value->NL==$thang)
+                $doanhthu=$value->DT;
             }
 
             $ds=DB::table('hoadon')
@@ -50,29 +51,29 @@ class pageController extends Controller
             foreach ($ds as $value) {
                 if (Carbon::now()->month==$value->NL)
                     $soluongban=$value->SL;
-                
+
             }
-            
+
             return view('page.trangchu',compact('month','doanhthu','soluongban'));
 
 
         }
-    }   
-    
-    
+    }
+
+
 
     public function get_taikhoan(){
         if(Auth::guard('member')->check()==true)
         {
             return redirect()->route('AdminLogin');
-            
+
         }
         else {
             return view('page.taikhoan');
         }
     }
     public function get_home(){
-        
+
         $date=Carbon::now()->toDateString();
         $sach = DB::table('sach')
         ->join('dausach','sach.MaDauSach','=','dausach.MaDauSach')
@@ -82,8 +83,8 @@ class pageController extends Controller
                 $query->where('DonGiaSale','<>',0)
                       ->where('NgayRaMat','<',Carbon::now()->toDateString())
                       ->where('SoLuongTon','>',0);
-            })->get();    
-        //dd($sach);     
+            })->get();
+        //dd($sach);
         $count=Cart::count();
         // Sản phẩm nổi bật
         $madausach=DB::table('sach')
@@ -95,9 +96,9 @@ class pageController extends Controller
         ->groupby('sach.MaDauSach')
         ->orderby('SL')
         ->Limit(8)
-        ->get();  
+        ->get();
         // dd($madausach);
-        
+
         $tmp=[];
 
          foreach($madausach as $value)
@@ -137,8 +138,8 @@ class pageController extends Controller
         ->groupby('sach.MaDauSach')
         ->orderby('SoLuongBan')
         ->Limit(8)
-        ->get();      
-        
+        ->get();
+
         $tmp=[];
 
          foreach($MaDauSach as $value)
@@ -150,13 +151,13 @@ class pageController extends Controller
         ->join('sach','dausach.MaDauSach','=','sach.MaDauSach')
         ->wherein('sach.MaDauSach',$tmp)
         ->get();
-        
 
-        
+
+
         return view('banhang.homepage',compact('sach','count','sanphamnoibat','sanphamthang','sanphammoi','banchay'));
     }
     public function get_shop(){
-        
+
         $date=Carbon::now()->toDateString();
 
         $sach = DB::table('sach')
@@ -166,19 +167,19 @@ class pageController extends Controller
             $query->where('NgayRaMat','<',Carbon::now()->toDateString())
             ->where('SoLuongTon','>',0);
 
-        })->paginate(8); 
-        //dd($sach);  
+        })->paginate(8);
+        //dd($sach);
 
         $count=Cart::count();
 
         return view('banhang.shop',compact('sach','count'));
     }
     public function get_ctsach($id){
-       
+
         $sach = DB::table('sach')
         ->join('dausach','sach.MaDauSach','=','dausach.MaDauSach')
         ->join('theloai','theloai.MaTheLoai','=','dausach.MaTheLoai')
-        ->where('MaSach','=',$id) 
+        ->where('MaSach','=',$id)
         ->get();
         $nhaxuatban=DB::table('nhaxuatban')
         ->join('sach','sach.MaNXB','=','nhaxuatban.MaNXB')
@@ -191,7 +192,7 @@ class pageController extends Controller
         ->where('MaSach','=',$id)
         ->get();
         $count=Cart::count();
-      
+
 
 
         $madausach=DB::table('sach')
@@ -203,8 +204,8 @@ class pageController extends Controller
         ->groupby('sach.MaDauSach')
         ->orderby('SoLuongBan')
         ->Limit(8)
-        ->get();      
-        
+        ->get();
+
         $tmp=[];
 
          foreach($madausach as $value)
@@ -225,7 +226,7 @@ class pageController extends Controller
         $dattruoc=Carbon::now()->toDateString();
         return view('banhang.ct_sach',compact('sach','nhaxuatban','tacgia','count','sanphamnoibat','sanphammoi','dattruoc'));
 
-    }    
+    }
     public function donhang(){
         $makh=Auth::guard('member')->user()->MaKH;
         $donhang=DB::table('hoadon')
@@ -236,7 +237,6 @@ class pageController extends Controller
         ->get();
         $count=Cart::count();
         return view('banhang.donhang',compact('donhang','count'));
-    }  
+    }
 
 }
-

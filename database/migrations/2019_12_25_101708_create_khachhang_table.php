@@ -15,10 +15,13 @@ class CreateKhachhangTable extends Migration
     {
         Schema::create('khachhang', function (Blueprint $table) {
             $table->increments('MaKH');
-            $table->string('HoTenKH', 50)->nullable();
-            $table->string('DiaChi', 100)->nullable();
-            $table->char('DienThoai', 10)->nullable();
+            $table->string('HoTenKH', 50);
+            $table->string('DiaChi', 100);
+            $table->char('DienThoai', 10);
             $table->string('Email', 100)->default('demo@gmail.com');
+
+            /*$table->foreign('Email')
+            ->references('Email')->on('member');*/
         });
     }
 

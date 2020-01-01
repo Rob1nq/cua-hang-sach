@@ -21,7 +21,7 @@ class CreateSachTable extends Migration
             $table->date('NgayRaMat');
             $table->integer('SoLuongTon');
             $table->float('DonGia');
-            $table->text('MoTa');
+            $table->text('MoTa')->nullable();
             $table->text('HinhAnh');
             $table->float('DonGiaSale');
         });
@@ -35,6 +35,6 @@ class CreateSachTable extends Migration
     public function down()
     {
         Schema::dropIfExists('sach');
-        
+
     }
 }

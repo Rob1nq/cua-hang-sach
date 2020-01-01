@@ -162,7 +162,7 @@ class UserController extends Controller
                 'hoten'=>'required',
                 'diachi'=>'required',
                 'tel'=>'required',
-                'email'=>'required|email'
+                'email'=>'required'
             ],
             [
                 'username.required'=>'Vui lòng nhập tên đăng nhập',
@@ -184,7 +184,7 @@ class UserController extends Controller
         $HoTenKH=$request->hoten;
         $DiaChi=$request->diachi;
 
-        DB::table('khachhang')->insert(['HoTenKH'=>$HoTenKH,'DiaChi'=>$DiaChi,'DienThoai'=>$dienthoai]);
+        DB::table('khachhang')->insert(['HoTenKH'=>$HoTenKH,'DiaChi'=>$DiaChi,'DienThoai'=>$dienthoai, 'email'=>$email]);
         $kh=DB::table('khachhang')->select('MaKH')->get();
         $tmp=[];
         foreach($kh as $value) {

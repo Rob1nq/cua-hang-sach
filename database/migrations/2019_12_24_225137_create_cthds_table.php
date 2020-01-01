@@ -14,7 +14,7 @@ class CreateCthdsTable extends Migration
     public function up()
     {
         Schema::create('cthd', function (Blueprint $table) {
-            $table->increments('SoHD');
+            $table->integer('SoHD')->unsigned();
             $table->integer('MaSach')->unsigned();
             $table->integer('SoLuongBan')->nullable();
             $table->float('DonGiaBan')->nullable();
@@ -29,7 +29,7 @@ class CreateCthdsTable extends Migration
      * @return void
      */
     public function down()
-    {        
+    {
         Schema::dropIfExists('cthd');
 
     }

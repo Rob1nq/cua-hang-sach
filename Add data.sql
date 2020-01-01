@@ -37,7 +37,7 @@ INSERT INTO `nhaxuatban` (`MaNXB`, `TenNXB`) VALUES
 (6, 'Nhà Xuất Bản Thế Giới'),
 (7, 'Omega Plus'),
 (8, 'Nhà xuất bản văn học'),
-(9, 'Hội nhà văn'); 
+(9, 'Hội nhà văn');
 
 INSERT INTO `dausach` (`MaDauSach`, `TenDauSach`, `MaTheLoai`) VALUES
 (9, 'Tôi thấy hoa vàng trên cỏ xanh', 6),
@@ -98,8 +98,3 @@ INSERT INTO `ct_tacgia` (`MaDauSach`, `MaTacGia`) VALUES
 (22, 6),
 (23, 18),
 (24, 13);
-
-
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$10$SOOCYGrMpnaPwzzlPXz1e.3ArmJFaYKqKDIO2U3uxRCFRTWlnityi', 'nhatle@gmail.com', 1, NULL, '2019-05-30 02:32:51', '2019-05-30 02:32:51');
-
