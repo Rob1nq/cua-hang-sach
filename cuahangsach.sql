@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2019 at 04:54 PM
+-- Generation Time: Jan 01, 2020 at 11:10 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `cuahangsach`
 --
-CREATE DATABASE IF NOT EXISTS `cuahangsach` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `cuahangsach`;
 
 -- --------------------------------------------------------
 
@@ -82,10 +80,11 @@ CREATE TABLE `cthd` (
 --
 
 INSERT INTO `cthd` (`SoHD`, `MaSach`, `SoLuongBan`, `DonGiaBan`, `ThanhTien`) VALUES
+(1, 1, 1, 70000.00, 70000.00),
 (1, 3, 1, 129000.00, 129000.00),
+(2, 1, 1, 70000.00, 70000.00),
 (2, 3, 1, 129000.00, 129000.00),
-(3, 3, 1, 129000.00, 129000.00),
-(4, 3, 1, 129000.00, 129000.00);
+(3, 7, 1, 60000.00, 60000.00);
 
 -- --------------------------------------------------------
 
@@ -192,10 +191,9 @@ CREATE TABLE `hoadon` (
 --
 
 INSERT INTO `hoadon` (`SoHD`, `MaKH`, `NgayLap`, `TongTien`) VALUES
-(1, 1, '2019-12-26 00:00:00', 156090.00),
-(2, 1, '2019-12-26 00:00:00', 156090.00),
-(3, 1, '2019-12-26 00:00:00', 156090.00),
-(4, 1, '2019-12-26 00:00:00', 156090.00);
+(1, 1, '2020-01-01 00:00:00', 240790.00),
+(2, 1, '2020-01-01 00:00:00', 240790.00),
+(3, 1, '2020-01-01 00:00:00', 72600.00);
 
 -- --------------------------------------------------------
 
@@ -205,10 +203,10 @@ INSERT INTO `hoadon` (`SoHD`, `MaKH`, `NgayLap`, `TongTien`) VALUES
 
 CREATE TABLE `khachhang` (
   `MaKH` int(10) UNSIGNED NOT NULL,
-  `HoTenKH` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `DiaChi` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `DienThoai` char(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `Email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `HoTenKH` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DiaChi` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `DienThoai` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'demo@gmail.com'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -216,7 +214,8 @@ CREATE TABLE `khachhang` (
 --
 
 INSERT INTO `khachhang` (`MaKH`, `HoTenKH`, `DiaChi`, `DienThoai`, `Email`) VALUES
-(1, 'Trần Đức Phát', 'Huế', '0966155975', NULL);
+(1, 'Trần Đức Phát', 'Phong Điền, Huế', '0966155975', 'phat360054@gmail.com'),
+(2, 'Trần Đức Phát', 'Phòng 204, Toà D5, KTX khu B', '0372360522', '17520881@gm.uit.edu.vn');
 
 -- --------------------------------------------------------
 
@@ -225,10 +224,10 @@ INSERT INTO `khachhang` (`MaKH`, `HoTenKH`, `DiaChi`, `DienThoai`, `Email`) VALU
 --
 
 CREATE TABLE `member` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'demo@gmail.com',
   `level` tinyint(4) NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -240,8 +239,9 @@ CREATE TABLE `member` (
 -- Dumping data for table `member`
 --
 
-INSERT INTO `member` (`id`, `name`, `password`, `email`, `level`, `remember_token`, `created_at`, `updated_at`, `MaKH`) VALUES
-(1, 'Phat', '$2y$10$iznA47290K9Ur4IXh5xMk.vfP.OflGnUKA5Je8jdtS9rwrOdJCBVq', 'phat360054@gmail.com', 1, NULL, NULL, NULL, 1);
+INSERT INTO `member` (`id`, `name`, `password`, `Email`, `level`, `remember_token`, `created_at`, `updated_at`, `MaKH`) VALUES
+(1, 'phat', '$2y$10$DWuWbpyvkg9a9zmH3TxNTeIfwHpbhTFgndByIhcXtxUGM8Bn33rKG', 'phat360054@gmail.com', 0, NULL, NULL, NULL, 1),
+(2, 'admin', '$2y$10$VXZnRxBE9VBtlYQsvLkAled3aOMBB9rVq/RRvgNTCSqCnp5t1y0Zm', '17520881@gm.uit.edu.vn', 1, NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -260,28 +260,26 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_12_24_222447_create_table_bangnhap', 1),
-(4, '2019_12_24_223853_create_baocaotons_table', 1),
-(5, '2019_12_24_224506_create_chucnangs_table', 1),
-(6, '2019_12_24_225137_create_cthds_table', 1),
-(7, '2019_12_24_225710_create_ct_phieunhap_table', 1),
-(8, '2019_12_25_100200_create_ct_tacgia', 1),
-(9, '2019_12_25_101018_create_dausach_table', 1),
-(10, '2019_12_25_101319_create_hoadon_table', 1),
-(11, '2019_12_25_101708_create_khachhang_table', 1),
-(12, '2019_12_25_102656_create_nhaxuatban_table', 1),
-(13, '2019_12_25_103437_create_nhomnguoidung_table', 1),
-(14, '2019_12_25_103559_create_phanquyen_table', 1),
-(15, '2019_12_25_103752_create_phieunhap_table', 1),
-(16, '2019_12_25_104030_create_sach_table', 1),
-(17, '2019_12_25_104902_create_tacgia_table', 1),
-(18, '2019_12_25_105628_create_thamso_table', 1),
-(19, '2019_12_25_105831_create_theloai_table', 1),
-(20, '2019_12_25_225738_create_foreign_key', 1),
-(21, '2019_12_26_135227_create_member_table', 1),
-(22, '2019_12_26_213332_create_thongbao_table', 2);
+(1, '2019_12_24_222447_create_table_bangnhap', 1),
+(2, '2019_12_24_223853_create_baocaotons_table', 1),
+(3, '2019_12_24_224506_create_chucnangs_table', 1),
+(4, '2019_12_24_225137_create_cthds_table', 1),
+(5, '2019_12_24_225710_create_ct_phieunhap_table', 1),
+(6, '2019_12_25_100200_create_ct_tacgia', 1),
+(7, '2019_12_25_101018_create_dausach_table', 1),
+(8, '2019_12_25_101319_create_hoadon_table', 1),
+(9, '2019_12_25_101708_create_khachhang_table', 1),
+(10, '2019_12_25_102656_create_nhaxuatban_table', 1),
+(11, '2019_12_25_103437_create_nhomnguoidung_table', 1),
+(12, '2019_12_25_103559_create_phanquyen_table', 1),
+(13, '2019_12_25_103752_create_phieunhap_table', 1),
+(14, '2019_12_25_104030_create_sach_table', 1),
+(15, '2019_12_25_104902_create_tacgia_table', 1),
+(16, '2019_12_25_105628_create_thamso_table', 1),
+(17, '2019_12_25_105831_create_theloai_table', 1),
+(18, '2019_12_25_225738_create_foreign_key', 1),
+(19, '2019_12_26_135227_create_member_table', 1),
+(20, '2019_12_26_213332_create_thongbao_table', 1);
 
 -- --------------------------------------------------------
 
@@ -318,18 +316,6 @@ INSERT INTO `nhaxuatban` (`MaNXB`, `TenNXB`) VALUES
 CREATE TABLE `nhomnguoidung` (
   `MaNhom` int(10) UNSIGNED NOT NULL,
   `TenNhom` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -376,7 +362,7 @@ CREATE TABLE `sach` (
   `NgayRaMat` date NOT NULL,
   `SoLuongTon` int(11) NOT NULL,
   `DonGia` double(8,2) NOT NULL,
-  `MoTa` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `MoTa` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `HinhAnh` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `DonGiaSale` double(8,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -386,15 +372,15 @@ CREATE TABLE `sach` (
 --
 
 INSERT INTO `sach` (`MaSach`, `MaDauSach`, `MaNXB`, `NamXB`, `NgayRaMat`, `SoLuongTon`, `DonGia`, `MoTa`, `HinhAnh`, `DonGiaSale`) VALUES
-(1, 9, 4, 2010, '2019-05-20', 50, 80000.00, 'Những câu chuyện nhỏ xảy ra ở một ngôi làng nhỏ: chuyện người, chuyện cóc, chuyện ma, chuyện công chúa và hoàng tử , rồi chuyện đói ăn, cháy nhà, lụt lội,... Bối cảnh là trường học, nhà trong xóm, bãi tha ma. Dẫn chuyện là cậu bé 15 tuổi tên Thiều. Thiều có chú ruột là chú Đàn, có bạn thân là cô bé Mận. Nhưng nhân vật đáng yêu nhất lại là Tường, em trai Thiều, một cậu bé học không giỏi. Thiều, Tường và những đứa trẻ sống trong cùng một làng, học cùng một trường, có biết bao chuyện chung. Chúng nô đùa, cãi cọ rồi yêu thương nhau, cùng lớn lên theo năm tháng, trải qua bao sự kiện biến cố của cuộc đời.\r\nTác giả vẫn giữ cách kể chuyện bằng chính giọng trong sáng hồn nhiên của trẻ con. 81 chương ngắn là 81 câu chuyện hấp dẫn với nhiều chi tiết thú vị, cảm động, có những tình tiết bất ngờ, từ đó lộ rõ tính cách người. Cuốn sách, vì thế, có sức ám ảnh.', 'toithayhoavangtrencoxanh.png', 70000.00),
+(1, 9, 4, 2010, '2019-05-20', 48, 80000.00, 'Những câu chuyện nhỏ xảy ra ở một ngôi làng nhỏ: chuyện người, chuyện cóc, chuyện ma, chuyện công chúa và hoàng tử , rồi chuyện đói ăn, cháy nhà, lụt lội,... Bối cảnh là trường học, nhà trong xóm, bãi tha ma. Dẫn chuyện là cậu bé 15 tuổi tên Thiều. Thiều có chú ruột là chú Đàn, có bạn thân là cô bé Mận. Nhưng nhân vật đáng yêu nhất lại là Tường, em trai Thiều, một cậu bé học không giỏi. Thiều, Tường và những đứa trẻ sống trong cùng một làng, học cùng một trường, có biết bao chuyện chung. Chúng nô đùa, cãi cọ rồi yêu thương nhau, cùng lớn lên theo năm tháng, trải qua bao sự kiện biến cố của cuộc đời.\r\nTác giả vẫn giữ cách kể chuyện bằng chính giọng trong sáng hồn nhiên của trẻ con. 81 chương ngắn là 81 câu chuyện hấp dẫn với nhiều chi tiết thú vị, cảm động, có những tình tiết bất ngờ, từ đó lộ rõ tính cách người. Cuốn sách, vì thế, có sức ám ảnh.', 'toithayhoavangtrencoxanh.png', 70000.00),
 (2, 10, 4, 2016, '2019-05-18', 50, 90000.00, 'Con Chó Nhỏ Mang Giỏ Hoa Hồng\r\n\r\nTOP 100 BEST SELLER - “Con chó nhỏ mang giỏ hoa hồng” là tác phẩm mới nhất của nhà văn chuyên viết cho thanh thiếu niên Nguyễn Nhật Ánh, nối tiếp sau Bẩy bước tới mùa hè, Tôi thấy hoa vàng trên cỏ xanh… gây sóng gió thị trường sách năm 2015.\r\n\r\n5 chương sách với 86 câu chuyện cực kỳ thú vị và hài hước về 5 con chó 5 loài 5 tính cách trong 1 gia đình có 3 người đều yêu chúng nhưng theo từng cách riêng của mình. Các câu chuyện về tình bạn giữa chúng với nhau, giữa chúng với chị Ni, ba mẹ, khách đến nhà… thực sự mang lại một thế giới trong trẻo, những đoạn đời dễ thương quyến rũ tuổi mới lớn.\r\n\r\nMột quyển sách lôi cuốn viết cho tất cả chúng ta: trẻ con và người lớn. Cuộc đời của 5 con chó nhỏ: Haili, Batô, Suku, Êmê và Pig được tái hiện như đời sống của mỗi con người: tình bạn, tình yêu, đam mê, lòng dũng cảm, sự sợ hãi, và những ước mơ...', 'conchonhomanggiohoahong.png', 63000.00),
-(3, 11, 2, 2018, '2019-05-18', 66, 129000.00, 'Những Điều Trường Harvard Không Dạy Bạn\r\n\r\nVới lối viết thẳng thắn và mạnh mẽ, Những Điều Trường Harvard Không Dạy Bạn cung cấp nhiều kinh nghiệm thực tế về:\r\n\r\nCách thức thấu hiểu một con người\r\n\r\nNhững bí ẩn của một cuộc đàm phán\r\n\r\nCách điều hành và tham dự một cuộc họp\r\n\r\nBiến sự giận dữ của đối tác thành cơ hội\r\n\r\nĐón nhận những thách thức\r\n\r\nNhạy bén để biết vận may\r\n\r\nĐây thật sự là cuốn sách dành cho tất cả những ai thực sự muốn  thành công trong giới kinh doanh đầy thách thức.', 'nhungdieutruongharvardkodayban.jpg', 0.00),
+(3, 11, 2, 2018, '2019-05-18', 68, 129000.00, 'Những Điều Trường Harvard Không Dạy Bạn\r\n\r\nVới lối viết thẳng thắn và mạnh mẽ, Những Điều Trường Harvard Không Dạy Bạn cung cấp nhiều kinh nghiệm thực tế về:\r\n\r\nCách thức thấu hiểu một con người\r\n\r\nNhững bí ẩn của một cuộc đàm phán\r\n\r\nCách điều hành và tham dự một cuộc họp\r\n\r\nBiến sự giận dữ của đối tác thành cơ hội\r\n\r\nĐón nhận những thách thức\r\n\r\nNhạy bén để biết vận may\r\n\r\nĐây thật sự là cuốn sách dành cho tất cả những ai thực sự muốn  thành công trong giới kinh doanh đầy thách thức.', 'nhungdieutruongharvardkodayban.jpg', 0.00),
 (4, 12, 1, 2017, '2019-05-28', 100, 86000.00, 'Trên Đường Băng\r\n\r\nTRÊN ĐƯỜNG BĂNG là cuốn sách tập hợp những bài viết truyền cảm hứng và hướng dẫn kỹ năng cho các bạn trẻ khi chuẩn bị bước vào đời.\r\n\r\nCuốn Trên Đường Băng được chia làm 3 phần: “Chuẩn bị hành trang”, “Trong phòng chờ sân bay” và “Lên máy bay”, tương ứng với những quá trình một bạn trẻ phải trải qua trước khi “cất cánh” trên đường băng cuộc đời, bay vào bầu trời cao rộng.\r\n\r\nXuất phát từ cái tâm trong sáng của người đi trước dày dặn kinh nghiệm, kiến thức, Tony Buổi Sáng mang đến đọc giả những bài viết hài ước, tinh tế, sinh động và đầy thiết thực. Cuốn Trên Đường Băng với những bài viết về thái độ với sự học và kiến thức nói chung, cách ứng phó với những trắc trở thử thách khi đi làm, cách sống hào sảng nghĩa tình văn minh… truyền cảm hứng cho các bạn trẻ sống hết mình, trọn vẹn từng phút giây và sẵn sàng cho hành trang cuộc sống.\r\n\r\nTrên Đường Băng của Tony Buổi Sáng tuy hướng đến những đọc giả là những người trẻ nhưng những người lớn hơn vẫn để hiểu hơn, và có cách nhìn nhận cũng như giáo dục con em mình tốt nhất thay vì bảo vệ con quá kĩ trở nên yếu ớt và thiếu tự lập. Và để yêu thương “khoa học” nhất. Đây cũng là cuốn sách mà những người đi làm nên sở hữu để nhìn lại chặng đường mình đã đi qua, suy ngẫm và thay đổi vì chưa bao giờ là quá muộn.\r\n\r\nMột cuốn sách với nhiều điều để bạn học hỏi, suy ngẫm và chuẩn bị tốt nhất cho hành trang trên con đường tuổi trẻ của chính mình.', 'tonybuoisang.png', 0.00),
 (5, 19, 8, 2016, '2019-05-28', 30, 45000.00, 'Vợ Nhặt - Tập Truyện Ngắn\r\n\r\nKim Lân tên thật là Nguyễn Văn Tài (1921-2007), quê gốc: Thôn Phù Lưu, xã Tân Hồng, huyện Tiên Sơn, tỉnh Bắc Ninh. Đảng viên Đảng Cộng sản Việt Nam. Hội viên sáng lập Hội Nhà văn Việt Nam (1957). Nhà văn Kim Lân tham gia văn hóa Cứu quốc, trong kháng chiến chống Pháp công tác ở chiến khu Việt Bắc. Ông Từng là ủy viên Ban phụ trách Nhà xuất bản Văn học, trường bồi dưỡng những người viết trẻ, Tuần báo Văn nghệ, Nhà xuất bản Tác phẩm mới. Ông nhận Giải thưởng Nhà nước về Văn học Nghệ thuật năm 2000.\r\n\r\nTập truyện ngắn “Vợ nhặt” tập hợp những truyện ngắn đặc sắc nhất của Kim Lân – một cây bút truyện ngắn vững vàng, viết về cuộc sống và con người ở nông thôn bằng tình cảm, tâm hồn của một người vốn là con đẻ của đồng ruộng.', 'vonhat.png', 40000.00),
 (6, 18, 8, 2016, '2019-05-25', 100, 40000.00, '“Chí Phèo” – tập truyện ngắn tái hiện bức tranh chân thực nông thôn Việt Nam trước 1945, nghèo đói, xơ xác trên con đường phá sản, bần cùng, hết sức thê thảm, người nông dân bị đẩy vào con đường tha hóa, lưu manh hóa. Nam Cao không hề bôi nhọ người nông dân, trái lại nhà văn đi sâu vào nội tâm nhân vật để khẳng định nhân phẩm và bản chất lương thiện ngay cả khi bị vùi dập, cướp mất cà nhân hình, nhân tính của người nông dân, đồng thời kết án đanh thép cái xã hội tàn bạo đó trước 1945.\r\n\r\nNhững sáng tác của Nam Cao ngoài giá trị hiện thực sâu sắc, các tác phẩm đi sâu vào nội tâm nhân vật, để lại những cảm xúc sâu lắng trong lòng người đọc.', 'chipheo.png', 0.00),
-(7, 15, 1, 2017, '2019-05-28', 50, 69000.00, 'NHÀ GIẢ KIM là cuốn sách được in nhiều nhất chỉ sau Kinh Thánh. Cuốn sách của Paulo Coelho có sự hấp dẫn ra sao khiến độc giả không chỉ các xứ dùng ngôn ngữ Bồ Đào Nha mà các ngôn ngữ khác say mê như vậy?\r\n\r\nTiểu thuyết NHÀ GIẢ KIM của Paulo Coelho như một câu chuyện cổ tích giản dị, nhân ái, giàu chất thơ, thấm đẫm những minh triết huyền bí của phương Đông. Trong lần xuất bản đầu tiên tại Brazil vào năm 1988, sách chỉ bán được 900 bản. Nhưng, với số phận đặc biệt của cuốn sách dành cho toàn nhân loại, vượt ra ngoài biên giới quốc gia, Nhà giả kim đã làm rung động hàng triệu tâm hồn, trở thành một trong những cuốn sách bán chạy nhất mọi thời đại, và có thể làm thay đổi cuộc đời người đọc.\r\n\r\n“Nhưng nhà luyện kim đan không quan tâm mấy đến những điều ấy. Ông đã từng thấy nhiều người đến rồi đi, trong khi ốc đảo và sa mạc vẫn là ốc đảo và sa mạc. Ông đã thấy vua chúa và kẻ ăn xin đi qua biển cát này, cái biển cát thường xuyên thay hình đổi dạng vì gió thổi nhưng vẫn mãi mãi là biển cát mà ông đã biết từ thuở nhỏ. Tuy vậy, tự đáy lòng mình, ông không thể không cảm thấy vui trước hạnh phúc của mỗi người lữ khách, sau bao ngày chỉ có cát vàng với trời xanh nay được thấy chà là xanh tươi hiện ra trước mắt. ‘Có thể Thượng đế tạo ra sa mạc chỉ để cho con người biết quý trọng cây chà là,’ ông nghĩ.” - Trích NHÀ GIẢ KIM', 'nhagiakim.png', 60000.00),
+(7, 15, 1, 2017, '2019-05-28', 49, 69000.00, 'NHÀ GIẢ KIM là cuốn sách được in nhiều nhất chỉ sau Kinh Thánh. Cuốn sách của Paulo Coelho có sự hấp dẫn ra sao khiến độc giả không chỉ các xứ dùng ngôn ngữ Bồ Đào Nha mà các ngôn ngữ khác say mê như vậy?\r\n\r\nTiểu thuyết NHÀ GIẢ KIM của Paulo Coelho như một câu chuyện cổ tích giản dị, nhân ái, giàu chất thơ, thấm đẫm những minh triết huyền bí của phương Đông. Trong lần xuất bản đầu tiên tại Brazil vào năm 1988, sách chỉ bán được 900 bản. Nhưng, với số phận đặc biệt của cuốn sách dành cho toàn nhân loại, vượt ra ngoài biên giới quốc gia, Nhà giả kim đã làm rung động hàng triệu tâm hồn, trở thành một trong những cuốn sách bán chạy nhất mọi thời đại, và có thể làm thay đổi cuộc đời người đọc.\r\n\r\n“Nhưng nhà luyện kim đan không quan tâm mấy đến những điều ấy. Ông đã từng thấy nhiều người đến rồi đi, trong khi ốc đảo và sa mạc vẫn là ốc đảo và sa mạc. Ông đã thấy vua chúa và kẻ ăn xin đi qua biển cát này, cái biển cát thường xuyên thay hình đổi dạng vì gió thổi nhưng vẫn mãi mãi là biển cát mà ông đã biết từ thuở nhỏ. Tuy vậy, tự đáy lòng mình, ông không thể không cảm thấy vui trước hạnh phúc của mỗi người lữ khách, sau bao ngày chỉ có cát vàng với trời xanh nay được thấy chà là xanh tươi hiện ra trước mắt. ‘Có thể Thượng đế tạo ra sa mạc chỉ để cho con người biết quý trọng cây chà là,’ ông nghĩ.” - Trích NHÀ GIẢ KIM', 'nhagiakim.png', 60000.00),
 (8, 14, 3, 2017, '2019-05-21', 100, 90000.00, 'Đắc Nhân Tâm - Được lòng người, là cuốn sách đưa ra các lời khuyên về cách thức cư xử, ứng xử và giao tiếp với mọi người để đạt được thành công trong cuộc sống. Gần 80 năm kể từ khi ra đời, Đắc Nhân Tâm là cuốn sách gối đầu giường của nhiều thế hệ luôn muốn hoàn thiện chính mình để vươn tới một cuộc sống tốt đẹp và thành công.\r\n\r\nĐắc Nhân Tâm cụ thể và chi tiết với những chỉ dẫn để dẫn đạo người, để gây thiện cảm và dẫn dắt người khác,... những hướng dẫn ấy, qua thời gian, có thể không còn thích hợp trong cuộc sống hiện đại nhưng nếu người đọc có thể cảm và hiểu được những thông điệp tác giả muốn truyền đạt thì việc áp dụng nó vào cuộc sống trở nên dễ dàng và hiệu quả.\r\n\r\nĐắc Nhân Tâm, từ một cuốn sách, hôm nay đã trở thành một danh từ để chỉ một lối sống mà ở đó con người ta cư xử linh hoạt và thấu tình đạt lý. Lý thuyết muôn thuở vẫn là những quy tắc chết, nhưng Nhân Tâm là sống, là biến đổi. Bạn hãy thử đọc \"Đắc Nhân tâm\" và tự mình chiêm nghiệm những cái đang diễn ra trong đời thực hiện hữu, chắc chắn bạn sẽ có những bài học cho riêng mình.\r\n\r\nĐắc Nhân Tâm là nghệ thuật thu phục lòng người, là làm cho tất cả mọi người yêu mến mình. \"Đắc nhân tâm\" và cái Tài trong mỗi người chúng ta. \"Đắc Nhân Tâm\" trong ý nghĩa đó cần được thụ đắc bằng sự hiểu rõ bản thân, thành thật với chính mình, hiểu biết và quan tâm đến những người xung quanh để nhìn ra và khơi gợi những tiềm năng ẩn khuất nơi họ, giúp họ phát triển lên một tầm cao mới. Đây chính là nghệ thuật cao nhất về con người và chính là ý nghĩa sâu sắc nhất đúc kết từ những nguyên tắc vàng của Dale Carnegie.Sách đã được chuyển ngữ sang hầu hết các thứ tiếng trên thế giới và có mặt ở hàng trăm quốc gia. Đây là cuốn sách liên tục đứng đầu danh mục sách bán chạy nhất do thời báo NewYork Times bình chọn suốt 10 năm liền.\r\n\r\nTác phẩm có sức lan toả vô cùng rộng lớn - dù  bạn đi đến bất cứ đâu, bất kỳ quốc gia nào cũng đều có thể nhìn thấy. Tác phẩm được đánh giá là cuốn sách đầu tiên và hay nhất trong thể loại này, có ảnh hưởng thay đổi cuộc đời đối với hàng triệu người trên thế giới.', 'Dacnhantam.png', 68000.00),
-(9, 13, 5, 2016, '2019-05-17', 50, 32000.00, '', 'phattrienungdungweb.png', 0.00),
+(9, 13, 5, 2016, '2019-05-17', 50, 32000.00, NULL, 'phattrienungdungweb.png', 0.00),
 (12, 23, 1, 2017, '2019-06-01', 100, 88880.00, 'New York, Sân bay JFK…\r\n\r\nTrong phòng chờ chật cứng người, một người đàn ông và một người phụ nữ va phải nhau rồi ai đi đường nấy.\r\n\r\nMadeline và Jonathan chưa bao giờ gặp nhau, hẳn rồi họ cũng chẳng bao giờ tái ngộ. Nhưng lúc va chạm họ đã cầm nhầm điện thoại của nhau. Khi nhận ra, giữa họ đã là 10.000 cây số: cô là chủ một tiệm hoa tại Paris, anh có một nhà hàng ở San Francisco.\r\n\r\nHọ tò mò mở điện thoại của nhau ra xem. Một phát hiện đáng ngạc nhiên: cuộc đời họ gắn kết với nhau bởi một bí mật mà cả hai cứ ngỡ đã được chôn vùi… Và định mệnh tình yêu nằm trong hai chiếc điện thoại.\r\n\r\nMột câu chuyện lãng mạn\r\n\r\nMột cuốn trinh thám gay cấn\r\n\r\nMột cốt truyện bậc thầy\r\n\r\nMột kết thúc điêu luyện', 'cuocgoituthienthan.png', 0.00),
 (13, 22, 1, 2017, '2019-06-01', 100, 68000.00, '\"Cánh đồng bất tận\" bao gồm những truyện hay và mới nhất của nhà văn Nguyễn Ngọc Tư. Đây là tác phẩm đang gây xôn xao trong đời sống văn học, bởi ở đó người ta tìm thấy sự dữ dội, khốc liệt của đời sống thôn dã qua cái nhìn của một cô gái. Bi kịch về nỗi mất mát, sự cô đơn được đẩy lên đến tận cùng, khiến người đọc có lúc cảm thấy nhói tim... NXB Trẻ trân trọng giới thiệu cùng bạn đọc.', 'nguyenngoctu.jpg', 0.00),
 (14, 16, 8, 2014, '2019-06-04', 50, 50000.00, 'OP 100 BEST SELLER - 5cm/s không chỉ là vận tốc của những cánh anh đào rơi, mà còn là vận tốc khi chúng ta lặng lẽ bước qua đời nhau, đánh mất bao cảm xúc thiết tha nhất của tình yêu.\r\n\r\nBằng giọng văn tinh tế, truyền cảm, Năm centimet trên giây mang đến những khắc họa mới về tâm hồn và khả năng tồn tại của cảm xúc, bắt đầu từ tình yêu trong sáng, ngọt ngào của một cô bé và cậu bé. Ba giai đoạn, ba mảnh ghép, ba ngôi kể chuyện khác nhau nhưng đều xoay quanh nhân vật nam chính, người luôn bị ám ảnh bởi kí ức và những điều đã qua…\r\n\r\nKhác với những câu chuyện cuốn bạn chạy một mạch, truyện này khó mà đọc nhanh. Ngón tay bạn hẳn sẽ ngừng lại cả trăm lần trên mỗi trang sách. Chỉ vì một cử động rất khẽ, một câu thoại, hay một xúc cảm bất chợt có thể sẽ đánh thức những điều tưởng chừng đã ngủ quên trong tiềm thức, như ngọn đèn vừa được bật sáng trong tâm trí bạn. Và rồi có lúc nó vượt quá giới hạn chịu đựng, bạn quyết định gấp cuốn sách lại chỉ để tận hưởng chút ánh sáng từ ngọn đèn, hay đơn giản là để vết thương trong lòng mình có thời gian tự tìm xoa dịu.', '5cmtrengiay.png', 35000.00),
@@ -487,29 +473,13 @@ CREATE TABLE `thongbao` (
   `ThoiGian` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `users`
+-- Dumping data for table `thongbao`
 --
 
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level` tinyint(4) NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `password`, `email`, `level`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '', 'phat360054@gmail.com', 1, NULL, NULL, NULL);
+INSERT INTO `thongbao` (`id`, `NoiDung`, `MaKH`, `ThoiGian`) VALUES
+(1, 'Đặt hàng thành công, Số hóa đơn 2 Tổng tiền 240790', 1, '2020-01-01 17:01:37'),
+(2, 'Đặt hàng thành công, Số hóa đơn 3 Tổng tiền 72600', 1, '2020-01-01 17:01:56');
 
 --
 -- Indexes for dumped tables
@@ -537,7 +507,7 @@ ALTER TABLE `chucnang`
 -- Indexes for table `cthd`
 --
 ALTER TABLE `cthd`
-  ADD PRIMARY KEY (`SoHD`),
+  ADD KEY `cthd_sohd_foreign` (`SoHD`),
   ADD KEY `cthd_masach_foreign` (`MaSach`);
 
 --
@@ -601,12 +571,6 @@ ALTER TABLE `nhomnguoidung`
   ADD PRIMARY KEY (`MaNhom`);
 
 --
--- Indexes for table `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
 -- Indexes for table `phanquyen`
 --
 ALTER TABLE `phanquyen`
@@ -653,13 +617,6 @@ ALTER TABLE `thongbao`
   ADD KEY `thongbao_makh_foreign` (`MaKH`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_name_unique` (`name`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -682,12 +639,6 @@ ALTER TABLE `chucnang`
   MODIFY `MaChucNang` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `cthd`
---
-ALTER TABLE `cthd`
-  MODIFY `SoHD` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `ct_phieunhap`
 --
 ALTER TABLE `ct_phieunhap`
@@ -703,25 +654,25 @@ ALTER TABLE `dausach`
 -- AUTO_INCREMENT for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `SoHD` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SoHD` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `khachhang`
 --
 ALTER TABLE `khachhang`
-  MODIFY `MaKH` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MaKH` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `nhaxuatban`
@@ -769,13 +720,7 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT for table `thongbao`
 --
 ALTER TABLE `thongbao`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
